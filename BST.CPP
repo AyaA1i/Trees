@@ -18,7 +18,7 @@ namespace tree{
                 Traverse(p->right);
             }
         }
-        //Insertion in a binary search tree
+        //Search in a binary search tree
         void search(int el){
             Node* cur = root;
             while(cur != nullptr && cur->item != el){
