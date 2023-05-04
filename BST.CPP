@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-/////////////////////BinaryTreeTraverse///////////////////
+/////////////////////BinarySearchTree///////////////////
 namespace tree{
     struct Node{
         int item;
