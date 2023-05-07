@@ -6,8 +6,8 @@
 int main() {
     avlTree avl;
     BST bst;
-    //MaxHeap mxheap;
-    //MinHeap minheap;
+    MaxHeap maxHeap;
+    MinHeap minHeap;
     ifstream File("Students.txt");
     if (!File) {
         cerr << "Failed to open file" << endl;
@@ -19,7 +19,7 @@ int main() {
     for (int i = 0; i < numberOfStudents; i++) {
         int id;
         string name, department;
-        float gpa;
+        double gpa;
         File >> id;
         File.ignore();
         getline(File, name);
@@ -33,8 +33,8 @@ int main() {
         obj.GPA = gpa;
         obj.department = department;
         bst.insert(obj);
-        //mxheap.AddStudent(obj);
-        //minheap.AddStudent(obj);
+        maxHeap.AddStudent(obj);
+        minHeap.AddStudent(obj);
     }
 
     File.close();
@@ -55,7 +55,7 @@ int main() {
         cin >> dataStructureChoice;
         switch (dataStructureChoice) {
             case 1:
-                while (true) {
+                while (true){
                     cout << "Choose one of the following options:" << endl;
                     cout << "1. Add student" << endl;
                     cout << "2. Remove student" << endl;
@@ -135,7 +135,6 @@ int main() {
                             avl.departmentReport(avl.root);
                             break;
                         case 5:
-
                             break;
                         default:
                             cout << "Invalid choice." << endl;
@@ -147,10 +146,74 @@ int main() {
                 }
                 break;
             case 3:
-                //Heap
+                while (true){
+                    cout << "Choose one of the following options:" << endl;
+                    cout << "1. Add student" << endl;
+                    cout << "2. Remove student" << endl;
+                    cout << "3. Print All (sorted by GPA)" << endl;
+                    cout << "4. Return to main menu" << endl;
+                    cin >> choice;
+                    switch (choice) {
+                        case 1:
+                            cout << "Enter the student's ID, name, GPA and department :" << endl;
+                            cin >> id >> name >> gpa >> department;
+                            obj2.id = id;obj2.name = name;obj2.GPA = gpa;obj2.department = department;
+                            maxHeap.AddStudent(obj2);
+                            break;
+                        case 2:
+                            cout << "Enter the ID of the student to remove:" << endl;
+                            cin >> id;
+                            maxHeap.RemoveStudent(id);
+                            break;
+                        case 3:
+                            maxHeap.Print();
+                            maxHeap.Dep_Report();
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            cout << "Invalid choice." << endl;
+                            break;
+                    }
+                    if (choice == 4) {
+                        break;
+                    }
+                }
                 break;
             case 4:
-                //  Heap
+                while (true){
+                    cout << "Choose one of the following options:" << endl;
+                    cout << "1. Add student" << endl;
+                    cout << "2. Remove student" << endl;
+                    cout << "3. Print All (sorted by GPA)" << endl;
+                    cout << "4. Return to main menu" << endl;
+                    cin >> choice;
+                    switch (choice) {
+                        case 1:
+                            cout << "Enter the student's ID, name, GPA and department :" << endl;
+                            cin >> id >> name >> gpa >> department;
+                            obj2.id = id;obj2.name = name;obj2.GPA = gpa;obj2.department = department;
+                            minHeap.AddStudent(obj2);
+                            break;
+                        case 2:
+                            cout << "Enter the ID of the student to remove:" << endl;
+                            cin >> id;
+                            minHeap.RemoveStudent(id);
+                            break;
+                        case 3:
+                            minHeap.Print();
+                            minHeap.Dep_Report();
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            cout << "Invalid choice." << endl;
+                            break;
+                    }
+                    if (choice == 4) {
+                        break;
+                    }
+                }
                 break;
             case 5:
                 exit(0);
