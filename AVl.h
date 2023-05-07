@@ -1,20 +1,7 @@
-#include <iostream>
-#include<vector>
-#include <map>
-using namespace std;
-struct Student{
-    int id ;
-    string name;
-    string department;
-    float GPA;
-};
-class Node {
-public:
-    Student student;
-    Node* left;
-    Node* right;
-    int height;
-};
+#ifndef ASSIGN33_AVL_H
+#define ASSIGN33_AVL_H
+#include "Student.h"
+#include "Node.h"
 
 class avlTree {
 public:
@@ -184,10 +171,7 @@ public:
     }void printAll(Node *node) {
         if (node != NULL) {
             printAll(node->left);
-            cout << "Student ID: " << node->student.id << endl;
-            cout << "Name: " << node->student.name << endl;
-            cout << "Department: " << node->student.department << endl;
-            cout << "GPA: " << node->student.GPA << endl << endl;
+            cout<<node->student;
             printAll(node->right);
         }
     }
@@ -199,6 +183,7 @@ public:
             cout << department << ": " << count << " students." << endl;
         }
     }
+
     void countStudentsPerDepartment(Node *node, map<string, int>& count) {
         if (node != NULL) {
             countStudentsPerDepartment(node->left, count);
@@ -209,82 +194,4 @@ public:
 
 
 };
-int main() {
-    avlTree avl;
-    int dataStructureChoice;
-    int avlchoice;
-    int id;
-    string name;
-    double gpa;
-    string department;
-    while (true) {
-        cout << "Choose Data Structure:" << endl;
-        cout << "1. BST" << endl;
-        cout << "2. AVL" << endl;
-        cout << "3. Min Heap" << endl;
-        cout << "4. Max Heap" << endl;
-        cout << "5. Exit Program" << endl;
-        cin >> dataStructureChoice;
-        switch (dataStructureChoice) {
-            case 1:
-
-                break;
-            case 2:
-                while (true) {
-                    cout << "Choose one of the following options:" << endl;
-                    cout << "1. Add student" << endl;
-                    cout << "2. Remove student" << endl;
-                    cout << "3. Search student" << endl;
-                    cout << "4. Print All (sorted by id)" << endl;
-                    cout << "5. Return to main menu" << endl;
-                    cin >> avlchoice;
-                    switch (avlchoice) {
-                        case 1:
-                            cout << "Enter the student's ID, name, GPA and department :" << endl;
-                            cin >> id >> name >> gpa >> department;
-                            avl.addStudent(id, name, gpa, department);
-                            break;
-                        case 2:
-                            cout << "Enter the ID of the student to remove:" << endl;
-                            cin >> id;
-                            avl.removeStudent(id);
-                            break;
-                        case 3:
-                            cout << "Enter the ID of the student to search for:" << endl;
-                            cin >> id;
-                            avl.searchStudent(id);
-                            break;
-                        case 4:
-                            avl.printAll(avl.root);
-                            avl.departmentReport(avl.root);
-                            break;
-                        case 5:
-
-                            break;
-                        default:
-                            cout << "Invalid choice." << endl;
-                            break;
-                    }
-                    if (avlchoice == 5) {
-                        break;
-                    }
-                }
-                break;
-            case 3:
-                //Heap
-                break;
-            case 4:
-                //  Heap
-                break;
-            case 5:
-                exit(0);
-            default:
-                // Invalid choice
-                cout << "Invalid choice." << endl;
-                break;
-        }
-    }
-
-
-
-}
+#endif //ASSIGN33_AVL_H
