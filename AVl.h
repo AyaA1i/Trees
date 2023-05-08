@@ -143,6 +143,10 @@ public:
     }
 
     void removeStudent(int id) {
+        if(searchNode(root, id) == nullptr){
+            cout << "Student Not Found\n";
+            return;
+        }
         root = deleteNode(root, id);
         cout << "Student with " << id << " is removed .\n";
     }
