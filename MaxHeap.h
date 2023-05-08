@@ -1,10 +1,27 @@
-#ifndef ASSIGN33_MAXHEAP_H
-#define ASSIGN33_MAXHEAP_H
+#ifndef ASSIGNMENT_3_MAXHEAP_H
+#define ASSIGNMENT_3_MAXHEAP_H
+#include <iostream>
 #include "Student.h"
 class MaxHeap {
 public:
     int length = 0;
     Student* array = new Student[100];
+    bool validate(int id, double gpa, string d){
+        transform(d.begin(), d.end(),d.begin(), ::toupper);
+        if(id < 1 || id > 100){
+            cout << "Invalid ID\n";
+            return false;
+        }
+        if(gpa > 4 || gpa < 0){
+            cout << "Invalid GPA\n";
+            return false;
+        }
+        if(d != "IS" && d != "CS" && d != "AI" && d != "DS" && d != "IT"){
+            cout << "Invalid Department..IS,CS,AI,DS,IT Valid\n";
+            return false;
+        }
+        return true;
+    }
     void MaxHeapify(int i){
         int left = 2*i + 1;
         int right = 2*i + 2;
@@ -21,6 +38,12 @@ public:
         }
     }
     void AddStudent(Student NewS){
+        for(int i = 0;i < length;i++){
+            if(array[i].id == NewS.id){
+                cout << "Can't Insert Student..ID Already Exists\n";
+                return;
+            }
+        }
         array[length] = std::move(NewS);
         length++;
         for (int i = length/2 - 1; i >= 0; --i) {
@@ -79,4 +102,4 @@ public:
     }
 };
 
-#endif //ASSIGN33_MAXHEAP_H
+#endif //ASSIGNMENT_3_MAXHEAP_H
