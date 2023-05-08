@@ -1,5 +1,6 @@
-#ifndef ASSIGN33_BST_H
-#define ASSIGN33_BST_H
+#ifndef ASSIGNMENT_3_BST_H
+#define ASSIGNMENT_3_BST_H
+
 #include "Student.h"
 #include "Node.h"
 class BST {
@@ -30,10 +31,14 @@ public:
         return nullptr;
     }
     //Insertion in a binary search tree
-    void insert(const Student& stu){
+    void addStudent(const Student& stu){
+        if(search(stu.id) != nullptr){
+            cout << "Can't Insert Student..ID Already Exists\n";
+            return;
+        }
         Node* cur = root;
         Node* pr = nullptr;
-        while(cur != nullptr )
+        while(cur != nullptr)
         {
             pr = cur;
             if(stu.id < cur ->student.id)
@@ -134,6 +139,21 @@ public:
             countStudentsPerDepartment(node->right, count);
         }
     }
+    bool validate(int id, double gpa, string d){
+        transform(d.begin(), d.end(),d.begin(), ::toupper);
+        if(id < 1 || id > 100){
+            cout << "Invalid ID\n";
+            return false;
+        }
+        if(gpa > 4 || gpa < 0){
+            cout << "Invalid GPA\n";
+            return false;
+        }
+        if(d != "IS" && d != "CS" && d != "AI" && d != "DS" && d != "IT"){
+            cout << "Invalid Department..IS,CS,AI,DS,IT Valid\n";
+            return false;
+        }
+        return true;
+    }
 };
-
-#endif //ASSIGN33_BST_H
+#endif //ASSIGNMENT_3_BST_H
