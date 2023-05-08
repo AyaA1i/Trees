@@ -71,6 +71,10 @@ public:
     //Deletion in a binary search tree
     void Delete(Node *node)
     {
+        if(node == nullptr){
+            cout << "Student Not Found\n";
+            return;
+        }
         //get node prev
         Node* prev = root;
         while((prev->left != node && prev->right != node) && prev != node){
