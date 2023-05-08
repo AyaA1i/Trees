@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cctype>
 #include "AVL.h"
 #include "BST.h"
 #include "MaxHeap.h"
@@ -32,7 +33,7 @@ int main() {
         obj.name = name;
         obj.GPA = gpa;
         obj.department = department;
-        bst.insert(obj);
+        bst.addStudent(obj);
         maxHeap.AddStudent(obj);
         minHeap.AddStudent(obj);
     }
@@ -49,8 +50,8 @@ int main() {
         cout << "Choose Data Structure:" << endl;
         cout << "1. BST" << endl;
         cout << "2. AVL" << endl;
-        cout << "3. Min Heap" << endl;
-        cout << "4. Max Heap" << endl;
+        cout << "3. Max Heap" << endl;
+        cout << "4. Min Heap" << endl;
         cout << "5. Exit Program" << endl;
         cin >> dataStructureChoice;
         switch (dataStructureChoice) {
@@ -67,11 +68,14 @@ int main() {
                         case 1:
                             cout << "Enter the student's ID, name, GPA and department :" << endl;
                             cin >> id >> name >> gpa >> department;
-                            obj2.id = id;
-                            obj2.name = name;
-                            obj2.GPA = gpa;
-                            obj2.department = department;
-                            bst.insert(obj2);
+                            if(bst.validate(id, gpa, department)){
+                                obj2.id = id;
+                                obj2.name = name;
+                                obj2.GPA = gpa;
+                                transform(department.begin(), department.end(),department.begin(), ::toupper);
+                                obj2.department = department;
+                                bst.addStudent(obj2);
+                            }
                             break;
                         case 2:
                             cout << "Enter the ID of the student to remove:" << endl;
@@ -118,7 +122,14 @@ int main() {
                         case 1:
                             cout << "Enter the student's ID, name, GPA and department :" << endl;
                             cin >> id >> name >> gpa >> department;
-                            avl.addStudent(id, name, gpa, department);
+                            if(avl.validate(id, gpa, department)){
+                                obj2.id = id;
+                                obj2.name = name;
+                                obj2.GPA = gpa;
+                                transform(department.begin(), department.end(),department.begin(), ::toupper);
+                                obj2.department = department;
+                                avl.addStudent(id, name, gpa, department);
+                            }
                             break;
                         case 2:
                             cout << "Enter the ID of the student to remove:" << endl;
@@ -157,8 +168,14 @@ int main() {
                         case 1:
                             cout << "Enter the student's ID, name, GPA and department :" << endl;
                             cin >> id >> name >> gpa >> department;
-                            obj2.id = id;obj2.name = name;obj2.GPA = gpa;obj2.department = department;
-                            maxHeap.AddStudent(obj2);
+                            if(maxHeap.validate(id, gpa, department)){
+                                obj2.id = id;
+                                obj2.name = name;
+                                obj2.GPA = gpa;
+                                transform(department.begin(), department.end(),department.begin(), ::toupper);
+                                obj2.department = department;
+                                maxHeap.AddStudent(obj2);
+                            }
                             break;
                         case 2:
                             cout << "Enter the ID of the student to remove:" << endl;
@@ -192,8 +209,14 @@ int main() {
                         case 1:
                             cout << "Enter the student's ID, name, GPA and department :" << endl;
                             cin >> id >> name >> gpa >> department;
-                            obj2.id = id;obj2.name = name;obj2.GPA = gpa;obj2.department = department;
-                            minHeap.AddStudent(obj2);
+                            if(minHeap.validate(id, gpa, department)){
+                                obj2.id = id;
+                                obj2.name = name;
+                                obj2.GPA = gpa;
+                                transform(department.begin(), department.end(),department.begin(), ::toupper);
+                                obj2.department = department;
+                                minHeap.AddStudent(obj2);
+                            }
                             break;
                         case 2:
                             cout << "Enter the ID of the student to remove:" << endl;
@@ -223,5 +246,4 @@ int main() {
                 break;
         }
     }
-
 }
