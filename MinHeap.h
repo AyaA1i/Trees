@@ -1,5 +1,5 @@
-#ifndef ASSIGNMENT_3_MINHEAP_H
-#define ASSIGNMENT_3_MINHEAP_H
+#ifndef ASSIGN33_MINHEAP_H
+#define ASSIGN33_MINHEAP_H
 #include "Student.h"
 class MinHeap {
 public:
@@ -81,4 +81,4 @@ public:
 };
 
 
-#endif //ASSIGNMENT_3_MINHEAP_H
+#endif //ASSIGN33_MINHEAP_H
