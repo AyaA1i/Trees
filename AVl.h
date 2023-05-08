@@ -1,16 +1,16 @@
-#ifndef ASSIGN33_AVL_H
-#define ASSIGN33_AVL_H
-#include <utility>
-
+#ifndef ASSIGNMENT_3_AVL_H
+#define ASSIGNMENT_3_AVL_H
 #include "Student.h"
 #include "Node.h"
 
 class avlTree {
 public:
     Node *root;
+
     avlTree() {
         root = nullptr;
     }
+
     int heightOfNode(Node *node) {
         if (node == nullptr)
             return 0;
@@ -44,7 +44,7 @@ public:
         return y;
     }
 
-    Node *insertNode(Node *node, const Student& stud) {
+    Node *insertNode(Node *node, const Student &stud) {
         if (node == nullptr) {
             Node *newNode = new Node();
             newNode->student = stud;
@@ -79,13 +79,14 @@ public:
     }
 
     void addStudent(int id, string name, double gpa, string department) {
-        if (id < 0 || id > 100) {
-            cout << "InValiad Id . please write Id between 0 and 100 " << endl;
+        if(searchNode(root, id)){
+            cout << "Can't Insert Student..ID Already Exists\n";
             return;
         }
         Student stud = {id, std::move(name), department, gpa};
         root = insertNode(root, stud);
     }
+
     Node *deleteNode(Node *cur, int id) {
         if (cur == nullptr) {
             return nullptr;
@@ -161,16 +162,18 @@ public:
         if (res == nullptr) {
             cout << "Student with ID " << id << " not found." << endl;
             return;
-        } else
+        } else{
             cout << "Student ID: " << res->student.id << endl;
-        cout << "Name: " << res->student.name << endl;
-        cout << "Department: " << res->student.department << endl;
-        cout << "GPA: " << res->student.GPA << endl;
+            cout << "Name: " << res->student.name << endl;
+            cout << "Department: " << res->student.department << endl;
+            cout << "GPA: " << res->student.GPA << endl;
+        }
     }
+
     void printAll(Node *node) {
         if (node != nullptr) {
             printAll(node->left);
-            cout<<node->student;
+            cout << node->student;
             printAll(node->right);
         }
     }
@@ -178,12 +181,12 @@ public:
     void departmentReport(Node *node) {
         map<string, int> count;
         countStudentsPerDepartment(node, count);
-        for (auto [department, county] : count) {
+        for (auto [department, county]: count) {
             cout << department << ": " << county << " students." << endl;
         }
     }
 
-    void countStudentsPerDepartment(Node *node, map<string, int>& count) {
+    void countStudentsPerDepartment(Node *node, map<string, int> &count) {
         if (node != nullptr) {
             countStudentsPerDepartment(node->left, count);
             count[node->student.department]++;
@@ -191,8 +194,21 @@ public:
         }
     }
 
-
-
-
+    bool validate(int id, double gpa, string d){
+        transform(d.begin(), d.end(),d.begin(), ::toupper);
+        if(id < 1 || id > 100){
+            cout << "Invalid ID\n";
+            return false;
+        }
+        if(gpa > 4 || gpa < 0){
+            cout << "Invalid GPA\n";
+            return false;
+        }
+        if(d != "IS" && d != "CS" && d != "AI" && d != "DS" && d != "IT"){
+            cout << "Invalid Department..IS,CS,AI,DS,IT Valid\n";
+            return false;
+        }
+        return true;
+    }
 };
-#endif //ASSIGN33_AVL_H
+#endif //ASSIGNMENT_3_AVL_H
