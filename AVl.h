@@ -1,24 +1,24 @@
 #ifndef ASSIGN33_AVL_H
 #define ASSIGN33_AVL_H
+#include <utility>
+
 #include "Student.h"
 #include "Node.h"
 
 class avlTree {
 public:
     Node *root;
-
     avlTree() {
-        root = NULL;
+        root = nullptr;
     }
-
     int heightOfNode(Node *node) {
-        if (node == NULL)
+        if (node == nullptr)
             return 0;
         return node->height;
     }
 
     int balanceOfNode(Node *node) {
-        if (node == NULL) {
+        if (node == nullptr) {
             return 0;
         }
         return heightOfNode(node->left) - heightOfNode(node->right);
@@ -44,12 +44,12 @@ public:
         return y;
     }
 
-    Node *insertNode(Node *node, Student stud) {
-        if (node == NULL) {
+    Node *insertNode(Node *node, const Student& stud) {
+        if (node == nullptr) {
             Node *newNode = new Node();
             newNode->student = stud;
-            newNode->right = NULL;
-            newNode->left = NULL;
+            newNode->right = nullptr;
+            newNode->left = nullptr;
             newNode->height = 1;
             return newNode;
         }
@@ -78,65 +78,64 @@ public:
         return node;
     }
 
-    void addStudent(int id, string name, float gpa, string department) {
+    void addStudent(int id, string name, double gpa, string department) {
         if (id < 0 || id > 100) {
             cout << "InValiad Id . please write Id between 0 and 100 " << endl;
             return;
         }
-        Student stud = {id, name, department, gpa};
+        Student stud = {id, std::move(name), department, gpa};
         root = insertNode(root, stud);
     }
-
-    Node *deleteNode(Node *root, int id) {
-        if (root == NULL) {
-            return NULL;
+    Node *deleteNode(Node *cur, int id) {
+        if (cur == nullptr) {
+            return nullptr;
         }
-        if (id < root->student.id) {
-            root->left = deleteNode(root->left, id);
-        } else if (id > root->student.id) {
-            root->right = deleteNode(root->right, id);
+        if (id < cur->student.id) {
+            cur->left = deleteNode(cur->left, id);
+        } else if (id > cur->student.id) {
+            cur->right = deleteNode(cur->right, id);
         } else {
-            if (root->left == NULL || root->right == NULL) {
-                Node *temp = root->left ? root->left : root->right;
-                if (temp == NULL) {
-                    temp = root;
-                    root = NULL;
+            if (cur->left == nullptr || cur->right == nullptr) {
+                Node *temp = cur->left ? cur->left : cur->right;
+                if (temp == nullptr) {
+                    temp = cur;
+                    cur = nullptr;
                 } else {
-                    *root = *temp;
+                    *cur = *temp;
                 }
                 delete temp;
             } else {
-                Node *temp = minValue(root->right);
-                root->student = temp->student;
-                root->right = deleteNode(root->right, temp->student.id);
+                Node *temp = minValue(cur->right);
+                cur->student = temp->student;
+                cur->right = deleteNode(cur->right, temp->student.id);
             }
         }
-        if (root == NULL) {
-            return NULL;
+        if (cur == nullptr) {
+            return nullptr;
         }
-        root->height = 1 + max(heightOfNode(root->left), heightOfNode(root->right));
-        int balance = balanceOfNode(root);
+        cur->height = 1 + max(heightOfNode(cur->left), heightOfNode(cur->right));
+        int balance = balanceOfNode(cur);
 
-        if (balance > 1 && balanceOfNode(root->left) >= 0) {
-            return rotateRight(root);
+        if (balance > 1 && balanceOfNode(cur->left) >= 0) {
+            return rotateRight(cur);
         }
-        if (balance > 1 && balanceOfNode(root->left) < 0) {
-            root->left = rotateLeft(root->left);
-            return rotateRight(root);
+        if (balance > 1 && balanceOfNode(cur->left) < 0) {
+            cur->left = rotateLeft(cur->left);
+            return rotateRight(cur);
         }
-        if (balance < -1 && balanceOfNode(root->right) <= 0) {
-            return rotateLeft(root);
+        if (balance < -1 && balanceOfNode(cur->right) <= 0) {
+            return rotateLeft(cur);
         }
-        if (balance < -1 && balanceOfNode(root->right) > 0) {
-            root->right = rotateRight(root->right);
-            return rotateLeft(root);
+        if (balance < -1 && balanceOfNode(cur->right) > 0) {
+            cur->right = rotateRight(cur->right);
+            return rotateLeft(cur);
         }
-        return root;
+        return cur;
     }
 
     Node *minValue(Node *node) {
         Node *current = node;
-        while (current->left != NULL) {
+        while (current->left != nullptr) {
             current = current->left;
         }
         return current;
@@ -148,7 +147,7 @@ public:
     }
 
     Node *searchNode(Node *node, int id) {
-        if (node == NULL || node->student.id == id) {
+        if (node == nullptr || node->student.id == id) {
             return node;
         }
         if (id < node->student.id) {
@@ -159,7 +158,7 @@ public:
 
     void searchStudent(int id) {
         Node *res = searchNode(root, id);
-        if (res == NULL) {
+        if (res == nullptr) {
             cout << "Student with ID " << id << " not found." << endl;
             return;
         } else
@@ -167,9 +166,9 @@ public:
         cout << "Name: " << res->student.name << endl;
         cout << "Department: " << res->student.department << endl;
         cout << "GPA: " << res->student.GPA << endl;
-        return;
-    }void printAll(Node *node) {
-        if (node != NULL) {
+    }
+    void printAll(Node *node) {
+        if (node != nullptr) {
             printAll(node->left);
             cout<<node->student;
             printAll(node->right);
@@ -179,18 +178,20 @@ public:
     void departmentReport(Node *node) {
         map<string, int> count;
         countStudentsPerDepartment(node, count);
-        for (auto [department, count] : count) {
-            cout << department << ": " << count << " students." << endl;
+        for (auto [department, county] : count) {
+            cout << department << ": " << county << " students." << endl;
         }
     }
 
     void countStudentsPerDepartment(Node *node, map<string, int>& count) {
-        if (node != NULL) {
+        if (node != nullptr) {
             countStudentsPerDepartment(node->left, count);
             count[node->student.department]++;
             countStudentsPerDepartment(node->right, count);
         }
     }
+
+
 
 
 };
