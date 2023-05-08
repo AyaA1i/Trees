@@ -1,5 +1,5 @@
-#ifndef ASSIGNMENT_3_MAXHEAP_H
-#define ASSIGNMENT_3_MAXHEAP_H
+#ifndef ASSIGN33_MAXHEAP_H
+#define ASSIGN33_MAXHEAP_H
 #include "Student.h"
 class MaxHeap {
 public:
@@ -79,4 +79,4 @@ public:
     }
 };
 
-#endif //ASSIGNMENT_3_MAXHEAP_H
+#endif //ASSIGN33_MAXHEAP_H
