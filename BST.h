@@ -15,7 +15,7 @@ public:
     }
 
     //Insertion in a binary search tree
-    Node* search(int el) const{
+    [[nodiscard]] Node* search(int el) const{
         Node* cur = root;
         while(cur != nullptr && cur->student.id != el){
             if(el < cur ->student.id){
@@ -30,7 +30,7 @@ public:
         return nullptr;
     }
     //Insertion in a binary search tree
-    void insert(Student stu){
+    void insert(const Student& stu){
         Node* cur = root;
         Node* pr = nullptr;
         while(cur != nullptr )
@@ -123,12 +123,12 @@ public:
     void departmentReport(Node *node) {
         map<string, int> count;
         countStudentsPerDepartment(node, count);
-        for (auto [department, count] : count) {
-            cout << department << ": " << count << " students." << endl;
+        for (auto [department, county] : count) {
+            cout << department << ": " << county << " students." << endl;
         }
     }
     void countStudentsPerDepartment(Node *node, map<string, int>& count) {
-        if (node != NULL) {
+        if (node != nullptr) {
             countStudentsPerDepartment(node->left, count);
             count[node->student.department]++;
             countStudentsPerDepartment(node->right, count);
