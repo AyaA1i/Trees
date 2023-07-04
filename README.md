@@ -21,7 +21,7 @@ The program has the following functionalities:
 
 ## Contributing
 
-Contributions to the Toffee project are welcome. If you would like to contribute, please follow these steps:
+Contributions to the Trees project are welcome. If you would like to contribute, please follow these steps:
 
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
